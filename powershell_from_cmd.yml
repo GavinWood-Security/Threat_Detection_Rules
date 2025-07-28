@@ -1,0 +1,25 @@
+title: PowerShell Spawned from CMD
+id: 1c9b1fa2-7140-4f23-9a1f-cmd2powershell
+status: experimental
+description: Detects instances where cmd.exe spawns powershell.exe, which can indicate malicious activity such as script-based attacks or living-off-the-land techniques.
+author: Gavin Wood
+date: 2025/07/28
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: '\cmd.exe'
+    Image|endswith: '\powershell.exe'
+  condition: selection
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059.001
+falsepositives:
+  - System administration scripts
+  - Software installations or updates
+
+  Add rule: Detect PowerShell spawned by CMD
